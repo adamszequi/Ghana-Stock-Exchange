@@ -1,0 +1,97 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+access=pd.read_csv(('access'),usecols=[5])
+aci=pd.read_csv(('aci'),usecols=[5])
+adb=pd.read_csv(('adb'),usecols=[5])
+aads=pd.read_csv(('aads'),usecols=[5])
+aga=pd.read_csv(('aga'),usecols=[5])
+alw=pd.read_csv(('alw'),usecols=[5])
+ayrton=pd.read_csv(('ayrton'),usecols=[5])
+bopp=pd.read_csv(('bopp'),usecols=[5])
+cal=pd.read_csv(('cal'),usecols=[5])
+clmt=pd.read_csv(('clmt'),usecols=[5])
+clyd=pd.read_csv(('clyd'),usecols=[5])
+cpc=pd.read_csv(('cpc'),usecols=[5])
+digicut=pd.read_csv(('digicut'),usecols=[5])
+egh=pd.read_csv(('egh'),usecols=[5])
+egl=pd.read_csv(('egl'),usecols=[5])
+eti=pd.read_csv(('eti'),usecols=[5])
+fml=pd.read_csv(('fml'),usecols=[5])
+gcb=pd.read_csv(('gcb'),usecols=[5])
+ggbl=pd.read_csv(('ggbl'),usecols=[5])
+gld=pd.read_csv(('gld'),usecols=[5])
+goil=pd.read_csv(('goil'),usecols=[5])
+gsr=pd.read_csv(('gsr'),usecols=[5])
+hords=pd.read_csv(('hords'),usecols=[5])
+iil=pd.read_csv(('iil'),usecols=[5])
+mac=pd.read_csv(('mac'),usecols=[5])
+mlc=pd.read_csv(('mlc'),usecols=[5])
+mmh=pd.read_csv(('mmh'),usecols=[5])
+mtn=pd.read_csv(('mtn'),usecols=[5])
+pbc=pd.read_csv(('pbc'),usecols=[5])
+pkl=pd.read_csv(('pkl'),usecols=[5])
+pzc=pd.read_csv(('pzc'),usecols=[5])
+rbgh=pd.read_csv(('rbgh'),usecols=[5])
+samba=pd.read_csv(('samba'),usecols=[5])
+scb=pd.read_csv(('scb'),usecols=[5])
+scb_pref=pd.read_csv(('scbpref'),usecols=[5])
+sic=pd.read_csv(('sic'),usecols=[5])
+sogegh=pd.read_csv(('sogegh'),usecols=[5])
+spl=pd.read_csv(('spl'),usecols=[5])
+swl=pd.read_csv(('swl'),usecols=[5])
+tbl=pd.read_csv(('tbl'),usecols=[5])
+tlw=pd.read_csv(('tlw'),usecols=[5])
+total=pd.read_csv(('total'),usecols=[5])
+unil=pd.read_csv(('unil'),usecols=[5])
+abg=pd.read_csv(('abg'),usecols=[5])
+abl=pd.read_csv(('abl'),usecols=[5])
+cfao=pd.read_csv(('cfao'),usecols=[5])
+cpl=pd.read_csv(('cpl'),usecols=[5])
+ebg=pd.read_csv(('ebg'),usecols=[5])
+ggblrt=pd.read_csv(('ggblrt'),usecols=[5])
+goilrt=pd.read_csv(('goilrt'),usecols=[5])
+gweb=pd.read_csv(('gweb'),usecols=[5])
+hfc=pd.read_csv(('hfc'),usecols=[5])
+transol=pd.read_csv(('transol'),usecols=[5])
+utb=pd.read_csv(('utb'),usecols=[5])
+
+dataframe=[access,aci,adb,aads,aga,alw,ayrton,bopp,cal,clmt,clyd,cpc,digicut,egh,egl,eti,fml,gcb,ggbl\
+           ,gld,goil,gsr,hords,iil,mac,mlc,mmh,mtn,pbc,pkl,pzc,rbgh,samba,scb,scb_pref,sic,\
+            sogegh,spl,swl,tbl,tlw,total,unil]#,abg,abl,cfao,cpl,ebg,ggblrt,goilrt,gweb,hfc,transol,utb]
+
+merged=pd.concat(dataframe,axis=1)
+merged.columns=['ACCESS(Access Bank Ghana)','ACI(African Champion Industries Ltd)','ADB(Agricultural Development Bank)',
+                'AADs(AngloGold Ashanti Dep. Shares)','AGA(AngloGold Ashanti Limited)','ALW(Aluworks LTD)','AYRTN(yton Drugs Manufacturing Company Ltd)',
+                'BOPP(Benso Oil Palm Plantation Ltd)', 'CAL(CAL Bank Limited)','CMLT(Camelot Ghana Ltd)','CLYD(Clydestone (Ghana) Limited)','CPC(Cocoa Processing Company)',
+                'DIGICUT(Digicut Advertising and Production Limited)','EGH(Ecobank Ghana Ltd)','EGL(Enterprise Group Limited)','ETI(Ecobank Transnational Incorporation)',
+                'FML(Fan Milk Limited)','GCB(Ghana Commercial Bank Limited)','GGBL(Guinness Ghana Breweries Ltd)','GLD(NewGold Issuer Limited)',
+                'GOIL(Ghana Oil Company Limited)','GSR(Golden Star Resources Ltd)','HORDS(HORDS LTD)','IIL(INTRAVENOUS INFUSIONS)',
+                'MAC(Mega African Capital Limited)','MLC(Mechanical Lloyd Company Plc)','MMH(Meridian-Marshalls Holdings)','MTNGH(MTN Ghana)',
+                'PBC(Produce Buying Company Ltd)','PKL(Pioneer Kitchenware Ltd)','PZC(PZ Cussons Ghana Ltd)','RBGH(Republic Bank (Ghana) Ltd)',
+                'SAMBA(Samba Foods Ltd)','SCB(Standard Chartered Bank Ghana Ltd)','SCB PREF(Standard Chartered Bank Ghana Ltd.)',
+                'SIC(SIC Insurance Company Limited)','SOGEGH(Societe Generale Ghana Limited)','SPL(Starwin Products Limited)',
+                'SWL(Sam Wood Ltd)','TBL(Trust Bank Limited (THE GAMBIA))','TLW(Tullow Oil Plc)','TOTAL(Total Petroleum Ghana Ltd)','UNIL(Unilever Ghana Limited)']
+
+returns=merged.pct_change()[1:]
+
+cumreturns=((returns+1).cumprod()-1)*100
+
+last=cumreturns.loc[185]
+
+sortedlast=last.sort_values()
+
+chartlist=[]
+    
+chartlist.append(sortedlast[:3])  
+chartlist.append(sortedlast[-4:-1])
+#print(chartlist)
+new=cumreturns.filter(['ETI(Ecobank Transnational Incorporation)','SIC(SIC Insurance Company Limited)',
+                      'BOPP(Benso Oil Palm Plantation Ltd)','ALW(Aluworks LTD)','SPL(Starwin Products Limited)',
+                      'TBL(Trust Bank Limited (THE GAMBIA))'])
+print(cumreturns)
+
+x=new.plot(figsize=(15,5),title='Return on Stocks(Jan-2019 to September-2019)',kind='line',\
+             legend=True ,fontsize=15)#,color=colorlist)
+x.set_xlabel('Days(1st Jan.-30th Sep.)',fontsize=13)
+x.set_ylabel('Returns',fontsize=13)
+plt.show()
