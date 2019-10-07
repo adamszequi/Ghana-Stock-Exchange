@@ -1,0 +1,123 @@
+import pandas as pd
+import itertools
+import collections
+access=pd.read_csv(('access'),usecols=[5])
+aci=pd.read_csv(('aci'),usecols=[5])
+adb=pd.read_csv(('adb'),usecols=[5])
+ads=pd.read_csv(('ads'),usecols=[5])
+aga=pd.read_csv(('aga'),usecols=[5])
+alw=pd.read_csv(('alw'),usecols=[5])
+ayrton=pd.read_csv(('ayrton'),usecols=[5])
+bopp=pd.read_csv(('bopp'),usecols=[5])
+cal=pd.read_csv(('cal'),usecols=[5])
+clmt=pd.read_csv(('clmt'),usecols=[5])
+clyd=pd.read_csv(('clyd'),usecols=[5])
+cpc=pd.read_csv(('cpc'),usecols=[5])
+digicut=pd.read_csv(('digicut'),usecols=[5])
+egh=pd.read_csv(('egh'),usecols=[5])
+egl=pd.read_csv(('egl'),usecols=[5])
+eti=pd.read_csv(('eti'),usecols=[5])
+fml=pd.read_csv(('fml'),usecols=[5])
+gcb=pd.read_csv(('gcb'),usecols=[5])
+ggbl=pd.read_csv(('ggbl'),usecols=[5])
+gld=pd.read_csv(('gld'),usecols=[5])
+goil=pd.read_csv(('goil'),usecols=[5])
+gsr=pd.read_csv(('gsr'),usecols=[5])
+hord=pd.read_csv(('hord'),usecols=[5])
+iil=pd.read_csv(('iil'),usecols=[5])
+mac=pd.read_csv(('mac'),usecols=[5])
+mlc=pd.read_csv(('mlc'),usecols=[5])
+mmh=pd.read_csv(('mmh'),usecols=[5])
+mtn=pd.read_csv(('mtn'),usecols=[5])
+pbc=pd.read_csv(('pbc'),usecols=[5])
+pkl=pd.read_csv(('pkl'),usecols=[5])
+pzc=pd.read_csv(('pzc'),usecols=[5])
+rbgh=pd.read_csv(('rbgh'),usecols=[5])
+samba=pd.read_csv(('samba'),usecols=[5])
+scb=pd.read_csv(('scb'),usecols=[5])
+scb_pref=pd.read_csv(('scb pref'),usecols=[5])
+sic=pd.read_csv(('sic'),usecols=[5])
+sogegh=pd.read_csv(('sogegh'),usecols=[5])
+spl=pd.read_csv(('spl'),usecols=[5])
+swl=pd.read_csv(('swl'),usecols=[5])
+tbl=pd.read_csv(('tbl'),usecols=[5])
+tlw=pd.read_csv(('tlw'),usecols=[5])
+total=pd.read_csv(('total'),usecols=[5])
+unil=pd.read_csv(('unil'),usecols=[5])
+
+
+dataframe=[access,aci,adb,ads,aga,alw,ayrton,bopp,cal,clmt,clyd,cpc,digicut,egh,egl,eti,fml,gcb,ggbl\
+           ,gld,goil,gsr,hord,iil,mac,mlc,mmh,mtn,pbc,pkl,pzc,rbgh,samba,scb,scb_pref,sic,\
+          sogegh,spl,swl,tbl,tlw,total,unil]
+
+
+merged=pd.concat(dataframe,axis=1)
+merged.columns=['ACCESS(Access Bank Ghana)','ACI(African Champion Industries Ltd)','ADB(Agricultural Development Bank)',
+                'AADs(AngloGold Ashanti Dep. Shares)','AGA(AngloGold Ashanti Limited)','ALW(Aluworks LTD)','AYRTN(yton Drugs Manufacturing Company Ltd)',
+                'BOPP(Benso Oil Palm Plantation Ltd)', 'CAL(CAL Bank Limited)','CMLT(Camelot Ghana Ltd)','CLYD(Clydestone (Ghana) Limited)','CPC(Cocoa Processing Company)',
+                'DIGICUT(Digicut Advertising and Production Limited)','EGH(Ecobank Ghana Ltd)','EGL(Enterprise Group Limited)','ETI(Ecobank Transnational Incorporation)',
+                'FML(Fan Milk Limited)','GCB(Ghana Commercial Bank Limited)','GGBL(Guinness Ghana Breweries Ltd)','GLD(NewGold Issuer Limited)',
+                'GOIL(Ghana Oil Company Limited)','GSR(Golden Star Resources Ltd)','HORDS(HORDS LTD)','IIL(INTRAVENOUS INFUSIONS)',
+                'MAC(Mega African Capital Limited)','MLC(Mechanical Lloyd Company Plc)','MMH(Meridian-Marshalls Holdings)','MTNGH(MTN Ghana)',
+                'PBC(Produce Buying Company Ltd)','PKL(Pioneer Kitchenware Ltd)','PZC(PZ Cussons Ghana Ltd)','RBGH(Republic Bank (Ghana) Ltd)',
+                'SAMBA(Samba Foods Ltd)','SCB(Standard Chartered Bank Ghana Ltd)','SCB PREF(Standard Chartered Bank Ghana Ltd.)',
+                'SIC(SIC Insurance Company Limited)','SOGEGH(Societe Generale Ghana Limited)','SPL(Starwin Products Limited)',
+                'SWL(Sam Wood Ltd)','TBL(Trust Bank Limited (THE GAMBIA))','TLW(Tullow Oil Plc)','TOTAL(Total Petroleum Ghana Ltd)','UNIL(Unilever Ghana Limited)']
+
+
+a=(merged.std(axis=0,skipna=True))
+final=a.round(10)
+print (final)
+
+meanofstandarddev=final.mean()
+
+
+colorlist=[]
+mylistsort=[]
+mylistsort2=[]
+mylistsortsliced=[]
+activityi=[]
+activityw=[]
+for i,w in final.iteritems():
+    mylistsort.append(w)
+mylistsort.sort(reverse=True)
+mylistsortsliced=mylistsort[:4]
+
+
+for i,w in final.iteritems():
+    if w in mylistsortsliced:
+        #print(i)
+        colorlist.append('c')
+    else:
+        colorlist.append('y')
+
+for i,w in final.iteritems():
+    if w>meanofstandarddev:
+        #w=int(w)
+        activityi.append(i)
+        activityw.append(w)
+#for i in activity:
+    #print(i)
+#print(activityi)
+#print(activityw)
+dictionary=dict(zip(activityi,activityw))
+#print(dictionary)
+#from operator import itemgetter
+#sortedx=sorted(dictionary.items(),key=itemgetter(1))
+#import collections
+sortedx=collections.OrderedDict(sorted(dictionary.items(),key=lambda x:x[1]))
+
+#for i,w in sortedx.items():
+    #print (( i,'has a standard deviation of: ',w))
+#for i,w in sortedx.items():
+        #print( i,'has a standard deviation of: ',w)
+#print(sortedx)
+#for x in sortedx:
+    #print(x)
+ 
+
+x=a.plot(figsize=(15,5),title='How Active Are Stocks On the Ghana Stock Exchange?(Jan-2019 to September-2019)',kind='bar',\
+             legend=False,fontsize=12,color=colorlist)
+x.set_xlabel('Stock(Company)',fontsize=12)
+x.set_ylabel('Fluctuation of Stock Prices',fontsize=12)
+plt.show()
